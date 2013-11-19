@@ -37,15 +37,37 @@ module FirstOf
     return nil
   end
 
+  def first_of!(*args)
+    extract_hash = args.extract_options!        
+
+    # Don't care if the hash is empty or not because of #each call
+    sorted_keys = extract_hash.keys.sort
+    sorted_keys.each do |key|
+      args << extract_hash[key]
+    end
+
+    args.each do |argument|
+      if argument.respond_to?(:call)
+        value = argument.call
+      else
+        value = _extract_from_message_chain(argument, :try_chain!, :proxy_try_chain!) # calls try_chain if array, or try if symbol, or returns value
+      end
+
+      return value if _valid_value?(value) # return value if found
+    end
+
+    return nil
+  end
+
   private
 
-  def _extract_from_message_chain(methods_or_value)
+  def _extract_from_message_chain(methods_or_value, try_method = :try_chain, proxy_try_method = :proxy_try_chain)
     case methods_or_value
     when Symbol, Array then
       if self.respond_to?(:try_chain)
-        self.try_chain(*methods_or_value)
+        self.__send__(try_method, *methods_or_value)
       else
-        ::TryChain.proxy_try_chain(self, *methods_or_value)
+        ::TryChain.__send__(proxy_try_method, self, *methods_or_value)
       end
     else
       methods_or_value

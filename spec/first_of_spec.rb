@@ -26,9 +26,9 @@ describe ::FirstOf do
       test.first_of(:nothing, :symbol).should eq(:symbol)
     end
 
-    it "throws an exception if the object does not respond to the symbol" do
+    it "does not throw an exception if the object does not respond to the symbol" do
       test = SpecObject.new
-      expect { test.first_of(:nothing, :what) }.to raise_error
+      expect { test.first_of(:nothing, :what) }.to_not raise_error
     end
   end
 
