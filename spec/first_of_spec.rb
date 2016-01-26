@@ -15,12 +15,12 @@ describe ::FirstOf do
     context ":symbol, :symbol args" do
       it "returns the first symbolized argument that the object responds_to if the result is present" do
         test = SpecObject.new
-        test.first_of(:something, :nothing).should be_true
+        test.first_of(:something, :nothing).should be_truthy
       end
 
       it "returns the second symbolized argument that the object responds_to if the first is not present" do
         test = SpecObject.new
-        test.first_of(:nothing, :something).should be_true
+        test.first_of(:nothing, :something).should be_truthy
       end
 
       it "returns a symbol if the first present value is a symbol" do
@@ -42,7 +42,7 @@ describe ::FirstOf do
 
       it "returns the second symbolized argument that the object responds_to if the first is not present" do
         test = SpecObject.new
-        test.first_of([:selfie, :something]).should be_true
+        test.first_of([:selfie, :something]).should be_truthy
       end
 
       it "returns a symbol if the first present value is a symbol" do
@@ -64,7 +64,7 @@ describe ::FirstOf do
 
       it "returns the second symbolized argument that the object responds_to if the first is not present" do
         test = SpecObject.new
-        test.first_of( -> { nil }, :something).should be_true
+        test.first_of( -> { nil }, :something).should be_truthy
       end
 
       it "returns a symbol if the first present value is a symbol" do
@@ -112,12 +112,12 @@ describe ::FirstOf do
     context ":symbol, :symbol args" do
       it "returns the first symbolized argument that the object responds_to if the result is present" do
         test = SpecObject.new
-        test.first_of!(:something, :nothing).should be_true
+        test.first_of!(:something, :nothing).should be_truthy
       end
 
       it "returns the second symbolized argument that the object responds_to if the first is not present" do
         test = SpecObject.new
-        test.first_of!(:nothing, :something).should be_true
+        test.first_of!(:nothing, :something).should be_truthy
       end
 
       it "returns a symbol if the first present value is a symbol" do
@@ -139,7 +139,7 @@ describe ::FirstOf do
 
       it "returns the second symbolized argument that the object responds_to if the first is not present" do
         test = SpecObject.new
-        test.first_of!([:selfie, :something]).should be_true
+        test.first_of!([:selfie, :something]).should be_truthy
       end
 
       it "returns a symbol if the first present value is a symbol" do
@@ -161,7 +161,7 @@ describe ::FirstOf do
 
       it "returns the second symbolized argument that the object responds_to if the first is not present" do
         test = SpecObject.new
-        test.first_of!( -> { nil }, :something).should be_true
+        test.first_of!( -> { nil }, :something).should be_truthy
       end
 
       it "returns a symbol if the first present value is a symbol" do
